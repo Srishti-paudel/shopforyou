@@ -13,7 +13,7 @@
 
     <div class="navbar">
         <div class="logo">
-           <img src="images/image.png" alt="logo"/>
+           <img src="images/image.png" alt="shoforyou"/>
         </div>
 
        
@@ -31,3 +31,5 @@
         </div>
       
 </div>
+
+
