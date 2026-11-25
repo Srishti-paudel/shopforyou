@@ -10,8 +10,7 @@ try {
 
 
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    echo "Setup script ran successfully!";
-    echo "<br><br>Name: $student_name<br>Lab No. $lab_no<br>Roll No. $roll_no";
+   
 
     $pdo->exec("CREATE DATABASE IF NOT EXISTS shopforyou");
     $pdo->exec("USE shopforyou");
@@ -63,10 +62,7 @@ try {
             FOREIGN KEY (product_id) REFERENCES products(product_id)
         )
     ");
-        // ------------------------------------------------------------
-    // STEP 7: sample categories (5 rows)
-    // Only inserted when the table is empty, so re-running adds no duplicates.
-    // ------------------------------------------------------------
+        
     if ($pdo->query("SELECT COUNT(*) FROM categories")->fetchColumn() == 0) {
         $pdo->exec("
             INSERT INTO categories (name, description) VALUES
@@ -110,17 +106,23 @@ try {
             (5, 12.00, 'Completed')
         ");
     }
-     INSERT INTO order_items (order_id, product_id, quantity, unit_price) VALUES
-        (1, 1, 2, 25.00),
-        (1, 9, 1, 12.00),
-        (2, 4, 1, 45.00),
-        (3, 7, 1, 89.00),
-        (4, 5, 1, 32.00),
-        (4, 6, 2, 15.00),
-        (5, 3, 1, 28.00);
-    ");
+      if ($pdo->query("SELECT COUNT(*) FROM order_items")->fetchColumn() == 0) {
+        $pdo->exec("
+            INSERT INTO order_items (order_id, product_id, quantity, unit_price) VALUES
+            (1, 1, 1, 25.00),
+            (2, 2, 1, 28.00),
+            (3, 3, 1, 32.00),
+            (4, 4, 1, 89.00),
+            (5, 5, 1, 12.00)
+        ");
+    }   
     
-} catch (PDOException $e) {
+    echo "Setup script ran successfully! and table created successfully";
+    echo "<br><br>Name: $student_name<br>Lab No. $lab_no<br>Roll No. $roll_no";
+
+}
+    catch (PDOException $e) {
     echo "Error: " . $e->getMessage();
 }
+
 ?>
