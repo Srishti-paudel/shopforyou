@@ -2,7 +2,7 @@
   $host="localhost";
   $user="root";
   $password="";
-  $db="waradly";
+  $db="shopforyou";
   $con=mysqli_connect($host,$user,$password,$db);
   if(!$con){
     die("Error".mysqli_connect_error);

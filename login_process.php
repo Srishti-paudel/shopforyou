@@ -8,7 +8,7 @@ $password=$_POST['password'];
   $host="localhost";
   $u="root";
   $pw="";
-  $db="waradly";
+  $db="shopforyou";
   $con=mysqli_connect($host,$u,$pw,$db);
   if(!$con){
     die("Error".mysqli_connect_error);
