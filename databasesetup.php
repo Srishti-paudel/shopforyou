@@ -41,6 +41,27 @@ try {
             stock       INT NOT NULL,                    -- how many are available
             FOREIGN KEY (category_id) REFERENCES categories(category_id)
         )
+
+    ");
+     $pdo->exec("
+        CREATE TABLE IF NOT EXISTS orders (
+            order_id     INT AUTO_INCREMENT PRIMARY KEY,
+            user_id      INT NOT NULL,                   -- who placed the order
+            total_amount DECIMAL(10,2) NOT NULL,         -- order total
+            status       VARCHAR(50) NOT NULL,           -- e.g. Pending, Shipped, Completed
+            FOREIGN KEY (user_id) REFERENCES users(user_id)
+        )
+    ");
+        $pdo->exec("
+        CREATE TABLE IF NOT EXISTS order_items (
+            order_item_id INT AUTO_INCREMENT PRIMARY KEY,
+            order_id      INT NOT NULL,                  -- which order
+            product_id    INT NOT NULL,                  -- which product
+            quantity      INT NOT NULL,
+            unit_price    DECIMAL(10,2) NOT NULL,        -- price at the time of purchase
+            FOREIGN KEY (order_id)   REFERENCES orders(order_id),
+            FOREIGN KEY (product_id) REFERENCES products(product_id)
+        )
     ");
 } catch (PDOException $e) {
     echo "Error: " . $e->getMessage();
