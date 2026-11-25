@@ -63,6 +63,33 @@ try {
             FOREIGN KEY (product_id) REFERENCES products(product_id)
         )
     ");
+        // ------------------------------------------------------------
+    // STEP 7: sample categories (5 rows)
+    // Only inserted when the table is empty, so re-running adds no duplicates.
+    // ------------------------------------------------------------
+    if ($pdo->query("SELECT COUNT(*) FROM categories")->fetchColumn() == 0) {
+        $pdo->exec("
+            INSERT INTO categories (name, description) VALUES
+            ('Men',         'Shirts and t-shirts for men'),
+            ('Women',       'Tops and jeans for women'),
+            ('Kids',        'Comfortable clothing for children'),
+            ('Winterwear',  'Jackets and sweaters'),
+            ('Accessories', 'Caps and scarves')
+        ");
+    }
+       
+    if ($pdo->query("SELECT COUNT(*) FROM users")->fetchColumn() == 0) {
+        $hash = password_hash("Pass1234!", PASSWORD_DEFAULT);
+
+        $pdo->exec("
+            INSERT INTO users (username, email, password_hash) VALUES
+            ('Srishti paudel',   'srishti@pkmc.com',   '$hash'),
+            ('Roshni shakya',     'rosni@pkmc.com',     '$hash'),
+            ('shusana dahal', 'shusana@pkmc.com', '$hash'),
+            ('shrija khanal',   'shrija@pkmc.com',   '$hash'),
+            ('smrity thapa',    'smrity@pkmc.com',    '$hash')
+        ");
+    }
 } catch (PDOException $e) {
     echo "Error: " . $e->getMessage();
 }
