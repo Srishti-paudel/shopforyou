@@ -90,6 +90,16 @@ try {
             ('smrity thapa',    'smrity@pkmc.com',    '$hash')
         ");
     }
+     if ($pdo->query("SELECT COUNT(*) FROM products")->fetchColumn() == 0) {
+        $pdo->exec("
+            INSERT INTO products (category_id, name, price, stock) VALUES
+            (1, 'Men Cotton T-Shirt',   25.00, 50),
+            (2, 'Women Printed Top',    28.00, 60),
+            (3, 'Kids Zip-Up Hoodie',   32.00, 25),
+            (4, 'Winter Puffer Jacket', 89.00, 20),
+            (5, 'Baseball Cap',         12.00, 100)
+        ");
+    }
 } catch (PDOException $e) {
     echo "Error: " . $e->getMessage();
 }
