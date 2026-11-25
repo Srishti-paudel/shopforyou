@@ -15,6 +15,15 @@ try {
 
     $pdo->exec("CREATE DATABASE IF NOT EXISTS shopforyou");
     $pdo->exec("USE shopforyou");
+
+    //table for categories
+     $pdo->exec("
+        CREATE TABLE IF NOT EXISTS categories (
+            category_id INT AUTO_INCREMENT PRIMARY KEY,  -- unique id, generated automatically
+            name        VARCHAR(100) NOT NULL,           -- category name
+            description TEXT                             -- optional short description
+        )
+    ");
 } catch (PDOException $e) {
     echo "Error: " . $e->getMessage();
 }
